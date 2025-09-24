@@ -1,10 +1,21 @@
+import { createBrowserRouter, RouterProvider } from "react-router-dom"
+import Browse from "./pages/Browse";
+import Body from "./components/Body";
 
 function App() {
+  const appRouter = createBrowserRouter([
+    {
+      path: "/",
+      element: <Body />
+    },
+    {
+      path: "/browse",
+      element: <Browse />
+    }
+  ]);
 
   return (
-    <>
-      <h1 className="text-center font-bold text-3xl mt-64">Meet BotFlix</h1>
-    </>
+    <RouterProvider router={appRouter} />
   )
 }
 
