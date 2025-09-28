@@ -1,8 +1,37 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import bgImage from "../assets/bgimage.jpg";
+import { validateSigninForm } from "../utils/validateSigninForm";
+import { validateSignupForm } from "../utils/validateSignupForm";
 
 const Login = () => {
   const [isSignIn, setIsSignIn] = useState(true);
+  const [errorMessage, setErrorMessage] = useState(null);
+  const email = useRef(null);
+  const password = useRef(null);
+  const firstName = useRef(null);
+  const lastName = useRef(null);
+  const mobile = useRef(null);
+
+  const handleFormValidation = () => {
+    // For Sign In Form
+    if (isSignIn) {
+      const res = validateSigninForm(
+        email.current.value,
+        password.current.value
+      );
+      setErrorMessage(res);
+    } else {
+        // For Sign Up Form
+      const res = validateSignupForm(
+        firstName.current.value,
+        lastName.current.value,
+        mobile.current.value,
+        email.current.value,
+        password.current.value
+      );
+      setErrorMessage(res);
+    }
+  };
 
   return (
     <div className="min-w-full min-h-full">
@@ -13,22 +42,25 @@ const Login = () => {
         <h2 className="font-bold text-3xl pb-3 text-white">
           {isSignIn ? "Sign In" : "Sign Up"}
         </h2>
-        <form className="space-y-4">
+        <form onSubmit={(e) => e.preventDefault()} className="space-y-4">
           {!isSignIn && (
             <>
               <input
+                ref={firstName}
                 className="w-full py-3 px-2 border-1 rounded-lg bg-neutral-600/60"
                 type="text"
                 placeholder="First Name"
                 required
               />
               <input
+                ref={lastName}
                 className="w-full py-3 px-2 border-1 rounded-lg bg-neutral-600/60"
                 type="text"
                 placeholder="Last Name"
                 required
               />
               <input
+                ref={mobile}
                 className="w-full py-3 px-2 border-1 rounded-lg bg-neutral-600/60"
                 type="number"
                 placeholder="Mobile Number"
@@ -37,18 +69,26 @@ const Login = () => {
             </>
           )}
           <input
+            ref={email}
             className="w-full py-3 px-2 border-1 rounded-lg bg-neutral-600/60"
             type={"email" || "number"}
             placeholder="Email or mobile number"
             required
           />
           <input
+            ref={password}
             className="w-full py-3 px-2 border-1 rounded-lg bg-neutral-600/60"
             type="password"
             placeholder="Password"
             required
           />
-          <button className="w-full py-3 px-2 bg-red-600 hover:bg-red-700 cursor-pointer font-semibold rounded-lg">
+
+          <p className="text-red-600 font-semibold">{errorMessage}</p>
+
+          <button
+            onClick={handleFormValidation}
+            className="w-full py-3 px-2 bg-red-600 hover:bg-red-700 cursor-pointer font-semibold rounded-lg"
+          >
             {isSignIn ? "Sign In" : "Sign Up"}
           </button>
         </form>
