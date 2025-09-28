@@ -1,7 +1,8 @@
 import React, { useRef, useState } from "react";
 import bgImage from "../assets/bgimage.jpg";
 import { validateSigninForm } from "../utils/validateSigninForm";
-import { validateSignupForm } from "../utils/validateSignupForm";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../utils/firebase";
 
 const Login = () => {
   const [isSignIn, setIsSignIn] = useState(true);
@@ -13,32 +14,51 @@ const Login = () => {
   const mobile = useRef(null);
 
   const handleFormValidation = () => {
-    // For Sign In Form
-    if (isSignIn) {
-      const res = validateSigninForm(
+    const res = validateSigninForm(email.current.value, password.current.value);
+    setErrorMessage(res);
+    if (res) return;
+
+    if (!isSignIn) {
+      // Sign Up Logic
+      createUserWithEmailAndPassword(
+        auth,
         email.current.value,
         password.current.value
-      );
-      setErrorMessage(res);
+      )
+        .then((userCredential) => {
+          // Signed up
+          const user = userCredential.user;
+          console.log(user);
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErrorMessage(`${errorCode}`);
+        });
     } else {
-        // For Sign Up Form
-      const res = validateSignupForm(
-        firstName.current.value,
-        lastName.current.value,
-        mobile.current.value,
-        email.current.value,
-        password.current.value
-      );
-      setErrorMessage(res);
+      // Sign In Logic
+      signInWithEmailAndPassword(auth, email.current.value, password.current.value)
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          console.log(user);
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErrorMessage(`${errorCode}`);
+        });
     }
   };
 
   return (
-    <div className="min-w-full min-h-full">
-      <div className="absolute opacity-40">
-        <img src={bgImage} alt="background-image" />
-      </div>
-      <div className="absolute bg-black/85 w-[30rem] p-12 my-28 mx-auto left-0 right-0 space-y-4 rounded-sm">
+    <div className="relative min-h-screen min-w-screen flex items-center justify-center">
+      <img
+        src={bgImage}
+        alt="background-image"
+        className="absolute inset-0 w-full h-full object-cover opacity-40 -z-10"
+      />
+      <div className="bg-black/85 w-[30rem] p-12 space-y-4 rounded-sm my-28">
         <h2 className="font-bold text-3xl pb-3 text-white">
           {isSignIn ? "Sign In" : "Sign Up"}
         </h2>
