@@ -1,17 +1,26 @@
 import React, { useRef, useState } from "react";
 import bgImage from "../assets/bgimage.jpg";
 import { validateSigninForm } from "../utils/validateSigninForm";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
 import { auth } from "../utils/firebase";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addUser } from "../toolkit/userSlice";
 
 const Login = () => {
   const [isSignIn, setIsSignIn] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
+  const navigate = useNavigate();
   const email = useRef(null);
   const password = useRef(null);
   const firstName = useRef(null);
   const lastName = useRef(null);
   const mobile = useRef(null);
+  const dispatch = useDispatch();
 
   const handleFormValidation = () => {
     const res = validateSigninForm(email.current.value, password.current.value);
@@ -28,25 +37,49 @@ const Login = () => {
         .then((userCredential) => {
           // Signed up
           const user = userCredential.user;
-          console.log(user);
+          updateProfile(user, {
+            displayName: `${firstName.current.value} ${lastName.current.value}`,
+            photoURL: "https://avatars.githubusercontent.com/u/181448139?v=4",
+          })
+            .then(() => {
+              // Profile updated!
+              const { uid, email, displayName, photoURL } = auth.currentUser;
+              dispatch(
+                addUser({
+                  uid: uid,
+                  email: email,
+                  displayName: displayName,
+                  photoURL: photoURL,
+                })
+              );
+              navigate("/browse");
+            })
+            .catch((error) => {
+              // An error occurred
+              setErrorMessage(error);
+            });
         })
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
-          setErrorMessage(`${errorCode}`);
+          setErrorMessage(`${errorCode} - ${errorMessage}`);
         });
     } else {
       // Sign In Logic
-      signInWithEmailAndPassword(auth, email.current.value, password.current.value)
+      signInWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-          console.log(user);
+          navigate("/browse");
         })
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
-          setErrorMessage(`${errorCode}`);
+          setErrorMessage(`${errorCode} - ${errorMessage}`);
         });
     }
   };
@@ -58,7 +91,7 @@ const Login = () => {
         alt="background-image"
         className="absolute inset-0 w-full h-full object-cover opacity-40 -z-10"
       />
-      <div className="bg-black/85 w-[30rem] p-12 space-y-4 rounded-sm my-28">
+      <div className="bg-black/80 w-[30rem] p-12 space-y-4 rounded-sm my-28">
         <h2 className="font-bold text-3xl pb-3 text-white">
           {isSignIn ? "Sign In" : "Sign Up"}
         </h2>
