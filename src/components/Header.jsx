@@ -1,19 +1,16 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { auth } from "../utils/firebase";
 import Error from "./Error";
 
-const Header = (props) => {
-  const navigate = useNavigate();
+const Header = () => {
   const user = useSelector(store => store.user);
 
   const handleSignOut = () => {
     signOut(auth)
       .then(() => {
         // Sign-out successful.
-        navigate("/");
       })
       .catch((error) => {
         // An error happened.
@@ -41,7 +38,7 @@ const Header = (props) => {
           Stream with AI
         </h3>
       </div>
-      {props.btn && (
+      {user && (
         <div className="flex items-center justify-center px-2 space-x-5">
           <h2 className="font-bold text-lg">{user?.displayName}</h2>
           <img 
@@ -53,7 +50,7 @@ const Header = (props) => {
           onClick={handleSignOut}
           className={`font-semibold rounded-md text-sm h-9 py-0.5 px-4 font-sans bg-red-600 hover:bg-red-700 hover:cursor-pointer`}
         >
-          {props?.btn}
+          Sign Out
         </button>
         </div>
       )}
