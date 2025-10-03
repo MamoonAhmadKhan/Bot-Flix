@@ -36,7 +36,7 @@ const Login = () => {
           const user = userCredential.user;
           updateProfile(user, {
             displayName: `${firstName.current.value} ${lastName.current.value}`,
-            photoURL: "https://avatars.githubusercontent.com/u/181448139?v=4",
+            photoURL: "https://wallpapers.com/images/hd/netflix-profile-pictures-1000-x-1000-88wkdmjrorckekha.jpg",
           })
             .then(() => {
               // Profile updated!
@@ -80,36 +80,36 @@ const Login = () => {
   };
 
   return (
-    <div className="relative min-h-screen min-w-screen flex items-center justify-center">
+    <div className="relative max-md:bg-black min-h-screen min-w-screen flex items-center justify-center">
       <img
         src={bgImage}
         alt="background-image"
-        className="absolute inset-0 w-full h-full object-cover opacity-40 -z-10"
+        className="max-md:hidden absolute inset-0 w-full h-full object-cover opacity-40 -z-10"
       />
-      <div className="bg-black/80 w-[30rem] p-12 space-y-4 rounded-sm my-28">
-        <h2 className="font-bold text-3xl pb-3 text-white">
+      <div className="bg-black/80 w-[30rem] max-md:bg-black max-md:w-full p-12 space-y-4 max-md:p-8 max-md:space-y-3 rounded-sm my-28 max-md:my-10 max-sm:my-9">
+        <h2 className="font-bold text-3xl pb-3 max-md:text-2xl text-white">
           {isSignIn ? "Sign In" : "Sign Up"}
         </h2>
-        <form onSubmit={(e) => e.preventDefault()} className="space-y-4">
+        <form onSubmit={(e) => e.preventDefault()} className="space-y-4 max-md:space-y-3">
           {!isSignIn && (
             <>
               <input
                 ref={firstName}
-                className="w-full py-3 px-2 border-1 rounded-lg bg-neutral-600/60"
+                className="w-full py-3 px-2 max-md:py-2 max-md:px-1 border-1 rounded-lg bg-neutral-600/60"
                 type="text"
                 placeholder="First Name"
                 required
               />
               <input
                 ref={lastName}
-                className="w-full py-3 px-2 border-1 rounded-lg bg-neutral-600/60"
+                className="w-full py-3 px-2 max-md:py-2 max-md:px-1 border-1 rounded-lg bg-neutral-600/60"
                 type="text"
                 placeholder="Last Name"
                 required
               />
               <input
                 ref={mobile}
-                className="w-full py-3 px-2 border-1 rounded-lg bg-neutral-600/60"
+                className="w-full py-3 px-2 max-md:py-2 max-md:px-1 border-1 rounded-lg bg-neutral-600/60"
                 type="number"
                 placeholder="Mobile Number"
                 required
@@ -118,45 +118,45 @@ const Login = () => {
           )}
           <input
             ref={email}
-            className="w-full py-3 px-2 border-1 rounded-lg bg-neutral-600/60"
+            className="w-full py-3 px-2 max-md:py-2 max-md:px-1 border-1 rounded-lg bg-neutral-600/60"
             type={"email" || "number"}
             placeholder="Email or mobile number"
             required
           />
           <input
             ref={password}
-            className="w-full py-3 px-2 border-1 rounded-lg bg-neutral-600/60"
+            className="w-full py-3 px-2 max-md:py-2 max-md:px-1 border-1 rounded-lg bg-neutral-600/60"
             type="password"
             placeholder="Password"
             required
           />
 
-          <p className="text-red-600 font-semibold">{errorMessage}</p>
+          <p className="text-red-600 font-semibold max-md:font-normal">{errorMessage}</p>
 
           <button
             onClick={handleFormValidation}
-            className="w-full py-3 px-2 bg-red-600 hover:bg-red-700 cursor-pointer font-semibold rounded-lg"
+            className="w-full py-3 px-2 max-md:py-2 max-md:px-1 max-md:font-medium bg-red-600 hover:bg-red-700 cursor-pointer font-semibold rounded-lg"
           >
             {isSignIn ? "Sign In" : "Sign Up"}
           </button>
         </form>
-        <div className="space-y-4">
+        <div className="space-y-4 max-md:space-y-3">
           {isSignIn && (
             <>
-              <p className="w-full py-3 px-2 text-center">OR</p>
-              <button className="w-full py-3 px-2 font-semibold rounded-lg cursor-pointer bg-neutral-700 hover:bg-neutral-800">
+              <p className="w-full py-3 px-2 max-md:py-2 max-md:px-1 text-center">OR</p>
+              <button className="w-full py-3 px-2 max-md:py-2 max-md:px-1 max-md:font-medium font-semibold rounded-lg cursor-pointer bg-neutral-700 hover:bg-neutral-800">
                 Use a sign-in code
               </button>
-              <p className="w-full py-3 px-2 text-center cursor-pointer hover:opacity-60 underline">
+              <p className="w-full py-3 px-2 max-md:py-2 max-md:px-1 text-center cursor-pointer hover:opacity-60 underline">
                 Forgot password?
               </p>
             </>
           )}
           <label className="">
             <input type="checkbox" />
-            <span className="pl-3">Remember me</span>
+            <span className="pl-3 max-md:pl-2">Remember me</span>
           </label>
-          <p className="text-gray-400 pt-[12px]">
+          <p className="text-gray-400 pt-[12px] max-md:pt-[8px]">
             {isSignIn ? "New to Botflix? " : "Already Registered? "}
             <span
               onClick={() => setIsSignIn(!isSignIn)}
