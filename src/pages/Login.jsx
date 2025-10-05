@@ -49,6 +49,7 @@ const Login = () => {
                   photoURL: photoURL,
                 })
               );
+              
             })
             .catch((error) => {
               // An error occurred
