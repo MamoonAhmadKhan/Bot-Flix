@@ -19,7 +19,7 @@ const Header = () => {
   };
 
   return (
-    <div className="w-full absolute z-50 bg-gradient-to-b flex justify-between px-40 py-3 max-lg:px-20 max-md:px-10 max-sm:px-5 max-sm:py-2">
+    <div className="w-full absolute z-50 bg-gradient-to-b flex justify-between px-10 py-3 max-sm:px-5 max-sm:py-2">
       <div className="flex flex-col items-center justify-center -space-y-4">
         <h1
           className="font-extrabold text-5xl font-mono text-red-600 hover:cursor-pointer max-md:font-bold max-md:text-3xl"

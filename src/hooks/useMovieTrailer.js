@@ -8,14 +8,21 @@ export const useMovieTrailer = (id) => {
   const trailerVideo = useSelector((store) => store.movies?.trailer);
 
   const fetchMovieTrailer = async () => {
-    const res = await fetch(`https://api.themoviedb.org/3/movie/${id}/videos?language=en-US`, API_OPTIONS);
+    const res = await fetch(
+      `https://api.themoviedb.org/3/movie/${id}/videos?language=en-US`,
+      API_OPTIONS
+    );
     const data = await res.json();
 
     const trailer = data?.results?.find((itr) => {
       return itr?.name === "Official Trailer" || itr?.type === "trailer";
     });
 
-    dispatch(addTrailer(trailer));
+    if (!trailer) {
+      dispatch(addTrailer(data?.results[5]?.name));
+    } else {
+      dispatch(addTrailer(trailer));
+    }
   };
 
   useEffect(() => {
