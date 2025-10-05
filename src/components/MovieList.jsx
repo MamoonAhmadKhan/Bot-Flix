@@ -6,7 +6,7 @@ const MovieList = (props) => {
 
   return (
     <div className="p-4 mx-4">
-        <h1 className="my-2 text-2xl font-semibold">{title}</h1>
+        <h1 className="my-2 text-2xl font-semibold max-sm:text-xl">{title}</h1>
       <div className="flex overflow-x-scroll scrollbar-hide scroll-smooth snap-x snap-mandatory">
         <div className="flex space-x-6">
           {movies?.map((movie) => {

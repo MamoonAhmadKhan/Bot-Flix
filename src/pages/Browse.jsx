@@ -12,7 +12,7 @@ const Browse = () => {
   useUpcomingMovies();
 
   return (
-    <div>
+    <div className="max-sm:flex max-sm:flex-col max-sm:space-y-0">
       <MainContainer />
       <SecondaryContainer />
     </div>
