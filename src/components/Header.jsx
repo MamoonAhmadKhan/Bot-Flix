@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { signOut } from "firebase/auth";
 import { auth } from "../utils/firebase";
 import Error from "./Error";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft, faRobot } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const user = useSelector((store) => store.user);
+  const [gptSearch, setGptSearch] = useState(false);
 
   const handleSignOut = () => {
     signOut(auth)
@@ -40,7 +44,23 @@ const Header = () => {
       </div>
       {user && (
         <div className="flex items-center justify-center px-2 space-x-5 max-md:px-1 max-lg:space-x-3 max-md:space-x-2">
-          <h2 className="font-bold max-md:hidden text-lg max-lg:text-sm max-lg:font-medium">{user?.displayName}</h2>
+          <Link to={!gptSearch ? "/browse/gpt-search" : "/browse"}>
+            <button
+              onClick={() => setGptSearch(!gptSearch)}
+              className="font-medium font-mono text-lg max-lg:text-sm max-lg:font-normal px-4 max-md:px-3 py-1 max-sm:hidden rounded-md bg-purple-800 cursor-pointer hover:bg-purple-800/70"
+            >
+              {!gptSearch ? (
+                <FontAwesomeIcon className="pr-3" icon={faRobot} bounce />
+              ) : (
+                <FontAwesomeIcon className="pr-3" icon={faArrowLeft} beat />
+              )}
+
+              {gptSearch ? "Go-Back" : "AI Search"}
+            </button>
+          </Link>
+          <h2 className="font-semibold max-md:hidden text-lg max-lg:text-sm max-lg:font-medium">
+            {user?.displayName}
+          </h2>
           <img
             className="h-10 w-10 rounded-sm max-md:h-8 max-md:w-8"
             src={user?.photoURL}
