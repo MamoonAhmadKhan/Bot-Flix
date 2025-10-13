@@ -1,15 +1,17 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { signOut } from "firebase/auth";
 import { auth } from "../utils/firebase";
 import Error from "./Error";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faRobot } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import { toggleGptSearch } from "../toolkit/geminiSlice";
 
 const Header = () => {
   const user = useSelector((store) => store.user);
-  const [gptSearch, setGptSearch] = useState(false);
+  const gptSearch = useSelector(store => store.geminiMovies.gptSearch);
+  const dispatch = useDispatch();
 
   const handleSignOut = () => {
     signOut(auth)
@@ -46,7 +48,7 @@ const Header = () => {
         <div className="flex items-center justify-center px-2 space-x-5 max-md:px-1 max-lg:space-x-3 max-md:space-x-2">
           <Link to={!gptSearch ? "/browse/gpt-search" : "/browse"}>
             <button
-              onClick={() => setGptSearch(!gptSearch)}
+              onClick={() => dispatch(toggleGptSearch())}
               className="font-medium font-mono text-lg max-lg:text-sm max-lg:font-normal px-4 max-md:px-3 py-1 max-sm:hidden rounded-md bg-purple-800 cursor-pointer hover:bg-purple-800/70"
             >
               {!gptSearch ? (

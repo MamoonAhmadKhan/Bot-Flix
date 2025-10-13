@@ -1,13 +1,18 @@
 import {
+  faArrowLeft,
   faCircleInfo,
   faPlay,
   faRobot,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { toggleGptSearch } from "../toolkit/geminiSlice";
 
 const VideoTitle = (props) => {
   const { title, overview } = props;
+  const gptSearch = useSelector(store => store.geminiMovies.gptSearch);
+  const dispatch = useDispatch();
 
   return (
     <div className="w-screen aspect-video max-xl:pt-56 max-lg:px-12 max-lg:pt-32 pt-72 px-16 max-sm:relative max-sm:pt-0 max-sm:px-8 absolute bg-gradient-to-r from-black">
@@ -26,10 +31,17 @@ const VideoTitle = (props) => {
             <FontAwesomeIcon icon={faCircleInfo} size="lg" /> More Info
           </button>
         </div>
-        <button className="min-sm:hidden px-3 py-1 mt-3 max-[450px]:w-full rounded-sm bg-purple-800 cursor-pointer hover:bg-purple-800/70">
-          <FontAwesomeIcon className="pr-3" icon={faRobot} bounce />
-          AI Search
-        </button>
+        <Link to={!gptSearch ? "/browse/gpt-search" : "/browse"}>
+          <button onClick={() => dispatch(toggleGptSearch())} className="min-sm:hidden px-3 py-1 mt-3 max-[450px]:w-full rounded-sm bg-purple-800 cursor-pointer hover:bg-purple-800/70">
+            {!gptSearch ? (
+              <FontAwesomeIcon className="pr-3" icon={faRobot} bounce />
+            ) : (
+              <FontAwesomeIcon className="pr-3" icon={faArrowLeft} beat />
+            )}
+
+            {gptSearch ? "Go-Back" : "AI Search"}
+          </button>
+        </Link>
       </div>
     </div>
   );

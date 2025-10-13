@@ -12,19 +12,19 @@ function App() {
       element: <Body />,
       children: [
         {
-          path: "/",
+          index: true,
           element: <Login />,
         },
         {
-          path: "/browse",
+          path: "browse",
           element: <Browse />,
           children: [
             {
-              path: "/browse",
+              index: true,
               element: <BrowseMain />
             },
             {
-              path: "/browse/gpt-search",
+              path: "gpt-search",
               element: <GPTSearch />,
             },
           ],
