@@ -26,7 +26,7 @@ export const useMovieTrailer = (id) => {
   };
 
   useEffect(() => {
-    fetchMovieTrailer();
+    if (!trailerVideo) fetchMovieTrailer();
   }, []);
 
   return trailerVideo;

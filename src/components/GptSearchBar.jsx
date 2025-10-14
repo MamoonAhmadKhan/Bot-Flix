@@ -1,10 +1,10 @@
 import { faArrowLeft, faMagnifyingGlass, faRobot } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import model from "../utils/geminiAI";
 import { API_OPTIONS } from "../utils/constants";
 import { useDispatch, useSelector } from "react-redux";
-import { addRecommendedMovies, toggleGptSearch } from "../toolkit/geminiSlice";
+import { addRecommendedMovies, toggleGptSearch, toggleGptSubmit } from "../toolkit/geminiSlice";
 import { Link } from "react-router-dom";
 
 const GptSearchBar = () => {
@@ -19,6 +19,8 @@ const GptSearchBar = () => {
   }
 
   const geminiAISearch = async () => {
+    dispatch(toggleGptSubmit());
+
     // Provide a prompt that contains text
     const prompt = `Act as a Movie recommendation system and suggest 5 movies names (comma seperated) for the query : ${searchText.current.value}. Example results:- Gadar, Sholay, Superman, Golmaal, Shinchan`;
 

@@ -6,6 +6,7 @@ const geminiSlice = createSlice({
         movieNames: null,
         movieResults: null,
         gptSearch: false,
+        gptSubmit: true,
     },
     reducers: {
         addRecommendedMovies: (state, action) => {
@@ -15,9 +16,12 @@ const geminiSlice = createSlice({
         },
         toggleGptSearch: (state) => {
             state.gptSearch = !state.gptSearch;
+        },
+        toggleGptSubmit: (state) => {
+            state.gptSubmit = !state.gptSubmit;
         }
     }
 });
 
-export const { addRecommendedMovies, toggleGptSearch } = geminiSlice.actions;
+export const { addRecommendedMovies, toggleGptSearch, toggleGptSubmit } = geminiSlice.actions;
 export default geminiSlice.reducer;
