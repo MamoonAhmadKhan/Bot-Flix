@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import Header from './Header'
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../utils/firebase';
