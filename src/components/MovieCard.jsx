@@ -1,10 +1,11 @@
-import React from 'react';
 import { IMG_POSTER_CDN } from '../utils/constants';
+import { Link } from 'react-router-dom';
 
 const MovieCard = (props) => {
-    const { posterPath } = props;
+    const { posterPath, id } = props;
 
   return (
+    <Link to={`/show-movie-details/${id}`}>
     <div className='cursor-pointer rounded-lg'>
       {
        posterPath ? ( <img 
@@ -18,6 +19,7 @@ const MovieCard = (props) => {
         )
       }
     </div>
+    </Link>
   )
 }
 

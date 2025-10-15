@@ -39,7 +39,7 @@ const GptSearchBar = () => {
 
   return (
     <div className={`fixed bottom-0 w-full pb-8`}>
-      <Link to={!gptSearch ? "/browse/gpt-search" : "/browse"}>
+      <Link to={!gptSearch ? "/gpt-search" : "/browse"}>
             <button
               onClick={() => dispatch(toggleGptSearch())}
               className="font-medium mx-5 w-lg max-[550px]:w-md max-[499px]:w-sm max-[424px]:w-xs max-[340px]:w-2xs max-[300px]:w-3xs my-5 font-mono text-lg max-lg:text-sm max-lg:font-normal px-4 max-md:px-3 py-1 min-sm:hidden rounded-md bg-purple-800 cursor-pointer hover:bg-purple-800/70"

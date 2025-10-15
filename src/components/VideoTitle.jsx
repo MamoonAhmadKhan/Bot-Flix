@@ -15,7 +15,7 @@ const VideoTitle = (props) => {
   const dispatch = useDispatch();
 
   return (
-    <div className="w-screen aspect-video max-xl:pt-56 max-lg:px-12 max-lg:pt-32 pt-72 px-16 max-sm:relative max-sm:pt-0 max-sm:px-8 absolute bg-gradient-to-r from-black">
+    <div className="w-screen aspect-video max-xl:pt-56 max-lg:px-12 max-lg:pt-32 pt-60 px-16 max-sm:relative max-sm:pt-0 max-sm:px-8 absolute bg-gradient-to-r from-black">
       <h1 className="text-4xl max-xl:text-3xl max-lg:text-2xl max-md:text-xl max-sm:text-lg font-bold text-white">
         {title}
       </h1>
@@ -31,7 +31,7 @@ const VideoTitle = (props) => {
             <FontAwesomeIcon icon={faCircleInfo} size="lg" /> More Info
           </button>
         </div>
-        <Link to={!gptSearch ? "/browse/gpt-search" : "/browse"}>
+        <Link to={!gptSearch ? "/gpt-search" : "/browse"}>
           <button onClick={() => dispatch(toggleGptSearch())} className="min-sm:hidden px-3 py-1 mt-3 max-[450px]:w-full rounded-sm bg-purple-800 cursor-pointer hover:bg-purple-800/70">
             {!gptSearch ? (
               <FontAwesomeIcon className="pr-3" icon={faRobot} bounce />

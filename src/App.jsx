@@ -4,6 +4,7 @@ import Body from "./components/Body";
 import Login from "./pages/Login";
 import GPTSearch from "./pages/GPTSearch";
 import BrowseMain from "./components/BrowseMain";
+import ShowMovieDetails from "./pages/ShowMovieDetails";
 
 function App() {
   const appRouter = createBrowserRouter([
@@ -21,13 +22,17 @@ function App() {
           children: [
             {
               index: true,
-              element: <BrowseMain />
-            },
-            {
-              path: "gpt-search",
-              element: <GPTSearch />,
+              element: <BrowseMain />,
             },
           ],
+        },
+        {
+          path: "gpt-search",
+          element: <GPTSearch />,
+        },
+        {
+          path: "show-movie-details/:id",
+          element: <ShowMovieDetails />,
         },
       ],
     },

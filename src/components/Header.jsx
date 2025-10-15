@@ -46,7 +46,7 @@ const Header = () => {
       </div>
       {user && (
         <div className="flex items-center justify-center px-2 space-x-5 max-md:px-1 max-lg:space-x-3 max-md:space-x-2">
-          <Link to={!gptSearch ? "/browse/gpt-search" : "/browse"}>
+          <Link to={!gptSearch ? "/gpt-search" : "/browse"}>
             <button
               onClick={() => dispatch(toggleGptSearch())}
               className="font-medium font-mono text-lg max-lg:text-sm max-lg:font-normal px-4 max-md:px-3 py-1 max-sm:hidden rounded-md bg-purple-800 cursor-pointer hover:bg-purple-800/70"
