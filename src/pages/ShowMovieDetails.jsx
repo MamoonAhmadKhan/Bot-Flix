@@ -41,7 +41,7 @@ const ShowMovieDetails = () => {
           src={IMG_POSTER_CDN + poster_path}
           alt="background"
         />
-        <div className="w-fit h-full flex flex-col min-md:space-y-2">
+        <div className="w-[80%] h-full flex flex-col min-md:space-y-2">
           <Link to={"/browse"}>
             <button className="font-medium font-mono text-lg max-lg:text-sm max-lg:font-normal px-4 max-md:px-3 min-md:py-1 rounded-md bg-red-600 cursor-pointer hover:bg-red-700">
               <FontAwesomeIcon className="pr-3" icon={faArrowLeft} />
@@ -50,7 +50,7 @@ const ShowMovieDetails = () => {
           </Link>
           {poster_path ? (
             <img
-              className="w-[500px] h-[500px] rounded-lg  max-md:hidden"
+              className="w-[350px] h-[500px] rounded-lg  max-md:hidden"
               src={IMG_POSTER_CDN + poster_path}
               alt="img_poster"
             />
